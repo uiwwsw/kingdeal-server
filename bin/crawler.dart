@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
@@ -11,20 +10,22 @@ enum ConvenienceStoreKey { gs25, cu, emart24 }
 
 typedef ConvenienceStore = List<Map<String, String?>>;
 typedef Data = Map<String, ConvenienceStore?>;
+late Data data;
+// int test2 = 0;
 
 class CrawlerService {
-  File file = File('convenienceData.json');
-
-  CrawlerService() {
+  void setScheduler() {
+    print('scheduler 실행');
     final scheduler = NeatPeriodicTaskScheduler(
-      interval: const Duration(hours: 1),
+      interval: const Duration(seconds: 10),
       name: 'crawler',
+      minCycle: const Duration(seconds: 2),
       timeout: const Duration(seconds: 5),
-      task: () async => init(),
+      task: () async => fetch(),
     );
-
     scheduler.start();
   }
+
   Future<ConvenienceStore?> getGs25() async {
     final ConvenienceStore data = [];
     final url = Uri.parse(
@@ -161,16 +162,20 @@ class CrawlerService {
     return null;
   }
 
-  void init() async {
-    final Data data = {
+  Data getData() {
+    return data;
+  }
+
+  Future<void> fetch() async {
+    data = {
       ConvenienceStoreKey.gs25.name: await getGs25(),
       ConvenienceStoreKey.cu.name: await getCu(),
       ConvenienceStoreKey.emart24.name: await getEmart24()
     };
-    file.writeAsStringSync(jsonEncode(data));
   }
-}
 
-void main() {
-  CrawlerService().init();
+  // void test() async {
+  //   print(test2);
+  //   test2 = test2 + 1;
+  // }
 }

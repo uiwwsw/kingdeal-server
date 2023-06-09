@@ -17,17 +17,15 @@ Response _rootHandler(Request req) {
 }
 
 Future<Response> _dataHandler(Request request) async {
-  File file = File('convenienceData.json');
-  final message = request.params['message'];
-  // final ddd = await CrawlerService().getData();
-  print('djwakd');
-  print(file.readAsString());
+  // File file = File('convenienceData.json');
+  // final message = request.params['message'];
+  final res = CrawlerService().getData();
   //read
-  return Response.ok(jsonEncode(file.readAsString()));
+  return Response.ok(jsonEncode(res));
 }
 
 void main(List<String> args) async {
-  CrawlerService();
+  CrawlerService().setScheduler();
   // final ddd = await CrawlerService().getData();
   // print(ddd);
   // Use any available host or container IP (usually `0.0.0.0`).
