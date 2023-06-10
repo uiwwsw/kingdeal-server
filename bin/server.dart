@@ -20,12 +20,15 @@ Future<Response> _dataHandler(Request request) async {
   // File file = File('convenienceData.json');
   // final message = request.params['message'];
   final res = CrawlerService().getData();
+
   //read
   return Response.ok(jsonEncode(res));
 }
 
 void main(List<String> args) async {
   CrawlerService().setScheduler();
+  await CrawlerService().fetch();
+
   // final ddd = await CrawlerService().getData();
   // print(ddd);
   // Use any available host or container IP (usually `0.0.0.0`).

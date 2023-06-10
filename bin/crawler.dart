@@ -10,7 +10,7 @@ enum ConvenienceStoreKey { gs25, cu, emart24 }
 
 typedef ConvenienceStore = List<Map<String, String?>>;
 typedef Data = Map<String, ConvenienceStore?>;
-Data data = {};
+late Data data;
 // int test2 = 0;
 
 class CrawlerService {
