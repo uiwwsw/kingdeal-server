@@ -17,7 +17,7 @@ class CrawlerService {
   void setScheduler() {
     print('scheduler 실행');
     final scheduler = NeatPeriodicTaskScheduler(
-      interval: const Duration(seconds: 10),
+      interval: const Duration(hours: 1),
       name: 'crawler',
       minCycle: const Duration(seconds: 2),
       timeout: const Duration(seconds: 5),
@@ -27,6 +27,7 @@ class CrawlerService {
   }
 
   Future<ConvenienceStore?> getGs25() async {
+    print('getGs25 시작');
     final ConvenienceStore data = [];
     final url = Uri.parse(
         'http://gs25.gsretail.com/gscvs/ko/products/event-goods-search?pageSize=20&parameterList=ONE_TO_ONE');
@@ -61,12 +62,15 @@ class CrawlerService {
       //   // ..price = price
       //   // ..src = src
       // }
+      print('getGs25 성공');
       return data;
     }
+    print('getGs25 실패');
     return null;
   }
 
   Future<ConvenienceStore?> getCu() async {
+    print('getCu 시작');
     final ConvenienceStore data = [];
     final url = Uri.parse('https://cu.bgfretail.com/event/plusAjax.do');
     final response = await http.get(url);
@@ -108,12 +112,15 @@ class CrawlerService {
         // ..price = price
         // ..src = src
       }
+      print('getCu 성공');
       return data;
     }
+    print('getCu 실패');
     return null;
   }
 
   Future<ConvenienceStore?> getEmart24() async {
+    print('getEmart24 시작');
     final ConvenienceStore data = [];
     final url = Uri.parse(
         'https://www.emart24.co.kr/goods/event?search=&category_seq=1&align=');
@@ -157,12 +164,15 @@ class CrawlerService {
         // ..price = price
         // ..src = src
       }
+      print('getEmart24 성공');
       return data;
     }
+    print('getEmart24 실패');
     return null;
   }
 
   Data getData() {
+    print('getData 호출');
     return data;
   }
 

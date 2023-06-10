@@ -27,7 +27,6 @@ Future<Response> _dataHandler(Request request) async {
 
 void main(List<String> args) async {
   CrawlerService().setScheduler();
-  await CrawlerService().fetch();
 
   // final ddd = await CrawlerService().getData();
   // print(ddd);
