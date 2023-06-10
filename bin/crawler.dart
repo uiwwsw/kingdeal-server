@@ -20,7 +20,7 @@ class CrawlerService {
       interval: const Duration(hours: 1),
       name: 'crawler',
       minCycle: const Duration(seconds: 2),
-      timeout: const Duration(seconds: 5),
+      timeout: const Duration(seconds: 10),
       task: () async => fetch(),
     );
     scheduler.start();
