@@ -177,10 +177,10 @@ class CrawlerService {
   }
 
   Future<void> fetch() async {
+    final res = await Future.wait([getGs25(), getCu()]);
     data = {
-      ConvenienceStoreKey.gs25.name: await getGs25(),
-      ConvenienceStoreKey.cu.name: await getCu(),
-      ConvenienceStoreKey.emart24.name: await getEmart24()
+      ConvenienceStoreKey.gs25.name: res[0],
+      ConvenienceStoreKey.cu.name: res[1],
     };
   }
 
