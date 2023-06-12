@@ -1,11 +1,16 @@
+import 'dart:async';
+
+import 'package:dotenv/dotenv.dart';
+
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'crawler.dart';
+
+var env = DotEnv(includePlatformEnvironment: true)..load();
 
 // Configure routes.
 final _router = Router()
@@ -17,13 +22,36 @@ Response _rootHandler(Request req) {
 }
 
 Future<Response> _dataHandler(Request request) async {
-  // File file = File('convenienceData.json');
-  // final message = request.params['message'];
-  final res = CrawlerService().getData();
+  // try {
+  //   print(env['SECRET_KET']);
+  //   final token = request.headers[HttpHeaders.authorizationHeader];
+  //   final jwt = JWT.verify(token!, SecretKey('secret passphrase'));
 
-  //read
+  // } catch (_) {
+  //   return Response.ok([]);
+  // }
+  final res = CrawlerService().getData();
   return Response.ok(jsonEncode(res));
 }
+
+Middleware authRequests(
+        {void Function(String message, bool isError)? logger}) =>
+    (innerHandler) {
+      return (request) {
+        return Future.sync(() => innerHandler(request)).then((response) {
+          final res = request.headers[HttpHeaders.authorizationHeader] ==
+              env['SECRET_KEY'];
+          print(request.headers[HttpHeaders.authorizationHeader]);
+          if (res) {
+            return response;
+          } else {
+            throw Error();
+          }
+        }, onError: (Object error, StackTrace stackTrace) {
+          throw error;
+        });
+      };
+    };
 
 void main(List<String> args) async {
   CrawlerService().setScheduler();
@@ -34,7 +62,10 @@ void main(List<String> args) async {
   final ip = InternetAddress.anyIPv4;
 
   // Configure a pipeline that logs requests.
-  final handler = Pipeline().addMiddleware(logRequests()).addHandler(_router);
+  final handler = Pipeline()
+      .addMiddleware(logRequests())
+      .addMiddleware(authRequests())
+      .addHandler(_router);
 
   // For running in containers, we respect the PORT environment variable.
   final port = int.parse(Platform.environment['PORT'] ?? '80');
