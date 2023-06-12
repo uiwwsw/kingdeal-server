@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:html/parser.dart';
@@ -177,11 +178,13 @@ class CrawlerService {
   }
 
   Future<void> fetch() async {
+    print('fetch start ${DateTime.now()}');
     final res = await Future.wait([getGs25(), getCu()]);
     data = {
       ConvenienceStoreKey.gs25.name: res[0],
       ConvenienceStoreKey.cu.name: res[1],
     };
+    print('fetch end ${DateTime.now()}');
   }
 
   // void test() async {

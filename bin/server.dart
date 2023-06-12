@@ -41,7 +41,6 @@ Middleware authRequests(
         return Future.sync(() => innerHandler(request)).then((response) {
           final res = request.headers[HttpHeaders.authorizationHeader] ==
               env['SECRET_KEY'];
-          print(request.headers[HttpHeaders.authorizationHeader]);
           if (res) {
             return response;
           } else {
