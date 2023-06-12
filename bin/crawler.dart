@@ -17,7 +17,7 @@ class CrawlerService {
   void setScheduler() {
     print('scheduler 실행');
     final scheduler = NeatPeriodicTaskScheduler(
-      interval: const Duration(hours: 1),
+      interval: const Duration(minutes: 1),
       name: 'crawler',
       minCycle: const Duration(seconds: 2),
       timeout: const Duration(seconds: 30),
