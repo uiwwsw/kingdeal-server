@@ -1,5 +1,5 @@
 if [ -f program.pid ]; then
-  kill -9 `cat program.pid`
+  sudo kill -9 `cat program.pid`
 fi
 
 sudo chmod 755 bin/server.dart
