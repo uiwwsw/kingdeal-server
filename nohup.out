@@ -1,0 +1,148 @@
+scheduler 실행
+Server listening on port 80
+fetch start 2023-06-12 15:54:17.165796
+getGs25 시작
+getCu 시작
+getGs25 성공
+getCu 성공
+fetch end 2023-06-12 15:54:18.198792
+[ERROR] 2023-06-12 15:54:18.330533	0:00:00.007215	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:18.395688
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:18.492225	0:00:00.000147	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:18.500220
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:19.363665	0:00:00.000200	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:19.365566
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:19.408684	0:00:00.000160	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:19.410499
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:19.849953	0:00:00.000178	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:19.852648
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:19.881657	0:00:00.000154	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:19.883252
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:20.224878	0:00:00.000201	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:20.226507
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:20.259567	0:00:00.000154	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:20.261183
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:20.551003	0:00:00.000255	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:20.552965
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:20.580959	0:00:00.000159	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:20.582510
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:21.211057	0:00:00.000858	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:21.214482
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:21.243588	0:00:00.000177	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:21.245719
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:21.413880	0:00:00.000383	GET	/
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:21.417354
+GET /
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+[ERROR] 2023-06-12 15:54:21.453026	0:00:00.000150	GET	/favicon.ico
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
+ERROR - 2023-06-12 15:54:21.456801
+GET /favicon.ico
+Error thrown by handler.
+Instance of 'Error'
+bin/server.dart 48:13  authRequests.<fn>.<fn>.<fn>
+
