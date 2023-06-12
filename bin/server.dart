@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
+import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 import 'crawler.dart';
 
@@ -54,7 +55,10 @@ Middleware authRequests(
 
 void main(List<String> args) async {
   CrawlerService().setScheduler();
-
+final overrideHeaders = {
+    ACCESS_CONTROL_ALLOW_ORIGIN: 'example.com',
+    'Content-Type': 'application/json;charset=utf-8'
+  };
   // final ddd = await CrawlerService().getData();
   // print(ddd);
   // Use any available host or container IP (usually `0.0.0.0`).
@@ -62,6 +66,7 @@ void main(List<String> args) async {
 
   // Configure a pipeline that logs requests.
   final handler = Pipeline()
+        .addMiddleware(corsHeaders(headers: overrideHeaders))
       .addMiddleware(logRequests())
       .addMiddleware(authRequests())
       .addHandler(_router);
