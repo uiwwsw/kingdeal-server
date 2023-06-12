@@ -56,7 +56,7 @@ Middleware authRequests(
 void main(List<String> args) async {
   CrawlerService().setScheduler();
 final overrideHeaders = {
-    ACCESS_CONTROL_ALLOW_ORIGIN: 'example.com',
+    ACCESS_CONTROL_ALLOW_ORIGIN: '*',
     'Content-Type': 'application/json;charset=utf-8'
   };
   // final ddd = await CrawlerService().getData();
