@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dotenv/dotenv.dart';
 
-import 'dart:convert';
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -32,7 +31,10 @@ Future<Response> _dataHandler(Request request) async {
   //   return Response.ok([]);
   // }
   final res = CrawlerService().getData();
-  return Response.ok(jsonEncode(res));
+  // for (var d in res) {
+  //   print(d.title);
+  // }
+  return Response.ok(res);
 }
 
 Middleware authRequests(
@@ -55,9 +57,8 @@ Middleware authRequests(
 
 void main(List<String> args) async {
   CrawlerService().setScheduler();
-final overrideHeaders = {
+  final overrideHeaders = {
     ACCESS_CONTROL_ALLOW_ORIGIN: '*',
-    'Content-Type': 'application/json;charset=utf-8'
   };
   // final ddd = await CrawlerService().getData();
   // print(ddd);
@@ -66,7 +67,7 @@ final overrideHeaders = {
 
   // Configure a pipeline that logs requests.
   final handler = Pipeline()
-        .addMiddleware(corsHeaders(headers: overrideHeaders))
+      .addMiddleware(corsHeaders(headers: overrideHeaders))
       .addMiddleware(logRequests())
       .addMiddleware(authRequests())
       .addHandler(_router);

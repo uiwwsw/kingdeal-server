@@ -5,14 +5,42 @@ import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:neat_periodic_task/neat_periodic_task.dart';
 
-enum DataKey { id, title, price, src }
+Products data = [];
 
-enum ConvenienceStoreKey { gs25, cu, emart24 }
+typedef Products = List<Product>;
 
-typedef ConvenienceStore = List<Map<String, String?>>;
-typedef Data = Map<String, ConvenienceStore?>;
-late Data data;
+enum ConvenienceStoreName { cu, gs25, emart24 }
+
 // int test2 = 0;
+class Product {
+  final String id;
+  final String title;
+  final String price;
+  final String src;
+  final int size;
+  final ConvenienceStoreName convenienceStoreName;
+  Product({
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.src,
+    required this.size,
+    required this.convenienceStoreName,
+  });
+  Map<String, String> json() {
+    return {
+      "id": id,
+      "title": title,
+      "price": price,
+      "src": src,
+      "size": size.toString(),
+      "convenienceStoreName": convenienceStoreName.name,
+    };
+  }
+  // String json() {
+  //   return '{"id": "$id","title": "$title","price": "$price","src": "$src","size": "${size.toString()}","convenienceStoreName": "${convenienceStoreName.name}"}';
+  // }
+}
 
 class CrawlerService {
   void setScheduler() {
@@ -27,9 +55,9 @@ class CrawlerService {
     scheduler.start();
   }
 
-  Future<ConvenienceStore?> getGs25() async {
+  Future<Products?> getGs25() async {
     print('getGs25 시작');
-    final ConvenienceStore data = [];
+    final Products data = [];
     final url = Uri.parse(
         'http://gs25.gsretail.com/gscvs/ko/products/event-goods-search?pageSize=20&parameterList=ONE_TO_ONE');
     final response = await http.get(url);
@@ -40,12 +68,16 @@ class CrawlerService {
               .where((element) => element['goodsStatNm'] == '정상');
       var i = 0;
       for (final (webtoon) in webtoons) {
-        data.add({
-          DataKey.id.name: (++i).toString(),
-          DataKey.title.name: webtoon['goodsNm'],
-          DataKey.price.name: webtoon['price'].toString().split('.')[0],
-          DataKey.src.name: webtoon['attFileNm'],
-        });
+        data.add(
+          Product(
+            id: (++i).toString(),
+            title: webtoon['goodsNm'],
+            price: webtoon['price'].toString().split('.')[0],
+            src: webtoon['attFileNm'],
+            size: 2,
+            convenienceStoreName: ConvenienceStoreName.gs25,
+          ),
+        );
       }
       // final box = parse(response.body).querySelectorAll('.prod_box');
       // for (final element in box) {
@@ -70,9 +102,9 @@ class CrawlerService {
     return null;
   }
 
-  Future<ConvenienceStore?> getCu() async {
+  Future<Products?> getCu() async {
     print('getCu 시작');
-    final ConvenienceStore data = [];
+    final Products data = [];
     final url = Uri.parse('https://cu.bgfretail.com/event/plusAjax.do');
     final response = await http.get(url);
     if (response.statusCode == 200) {
@@ -92,21 +124,27 @@ class CrawlerService {
       var i = 0;
       for (final element in box) {
         final reg = RegExp('src="(\\S+)"');
-        final title = element.querySelector('.name')?.text.trim();
+        final title = element.querySelector('.name')?.text.trim() ?? '';
         final price = element
-            .querySelector('.price strong')
-            ?.text
-            .trim()
-            .replaceAll(',', '');
-        final src =
-            reg.firstMatch(element.querySelector('[src]')?.outerHtml ?? '')?[1];
+                .querySelector('.price strong')
+                ?.text
+                .trim()
+                .replaceAll(',', '') ??
+            '';
+        final src = reg.firstMatch(
+                element.querySelector('[src]')?.outerHtml ?? '')?[1] ??
+            '';
 
-        data.add({
-          DataKey.id.name: (++i).toString(),
-          DataKey.title.name: title,
-          DataKey.price.name: price,
-          DataKey.src.name: src
-        });
+        data.add(
+          Product(
+            id: (++i).toString(),
+            title: title,
+            price: price,
+            src: src,
+            size: 2,
+            convenienceStoreName: ConvenienceStoreName.cu,
+          ),
+        );
 
         // data
         // ..title = title
@@ -120,9 +158,9 @@ class CrawlerService {
     return null;
   }
 
-  Future<ConvenienceStore?> getEmart24() async {
+  Future<Products?> getEmart24() async {
     print('getEmart24 시작');
-    final ConvenienceStore data = [];
+    final Products data = [];
     final url = Uri.parse(
         'https://www.emart24.co.kr/goods/event?search=&category_seq=1&align=');
     final response = await http.get(url);
@@ -143,22 +181,28 @@ class CrawlerService {
       var i = 0;
       for (final element in box) {
         final reg = RegExp('src="(\\S+)"');
-        final title = element.querySelector('.itemtitle')?.text.trim();
+        final title = element.querySelector('.itemtitle')?.text.trim() ?? '';
         final price = element
-            .querySelector('.itemTxtWrap span')
-            ?.text
-            .replaceAll('원', '')
-            .replaceAll(',', '')
-            .trim();
-        final src =
-            reg.firstMatch(element.querySelector('[src]')?.outerHtml ?? '')?[1];
+                .querySelector('.itemTxtWrap span')
+                ?.text
+                .replaceAll('원', '')
+                .replaceAll(',', '')
+                .trim() ??
+            '';
+        final src = reg.firstMatch(
+                element.querySelector('[src]')?.outerHtml ?? '')?[1] ??
+            '';
 
-        data.add({
-          DataKey.id.name: (++i).toString(),
-          DataKey.title.name: title,
-          DataKey.price.name: price,
-          DataKey.src.name: src
-        });
+        data.add(
+          Product(
+            id: (++i).toString(),
+            title: title,
+            price: price,
+            src: src,
+            size: 2,
+            convenienceStoreName: ConvenienceStoreName.emart24,
+          ),
+        );
 
         // data
         // ..title = title
@@ -172,18 +216,20 @@ class CrawlerService {
     return null;
   }
 
-  Data getData() {
+  String getData() {
     print('getData 호출');
-    return data;
+    // print(data.toString());
+    return '[${data.map((element) => jsonEncode(element.json())).join(',')}]';
   }
 
   Future<void> fetch() async {
     print('fetch start ${DateTime.now()}');
     final res = await Future.wait([getGs25(), getCu()]);
-    data = {
-      ConvenienceStoreKey.gs25.name: res[0],
-      ConvenienceStoreKey.cu.name: res[1],
-    };
+    // print(res);
+    for (var item in res) {
+      data.addAll(item as Products);
+    }
+    print(data);
     print('fetch end ${DateTime.now()}');
   }
 
