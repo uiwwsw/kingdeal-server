@@ -29,12 +29,12 @@ class Product {
   });
   Map<String, String> json() {
     return {
-      "id": id,
-      "title": title,
-      "price": price,
-      "src": src,
-      "size": size.toString(),
-      "convenienceStoreName": convenienceStoreName.name,
+      'id': id,
+      'title': title,
+      'price': price,
+      'src': src,
+      'size': size.toString(),
+      'convenienceStoreName': convenienceStoreName.name,
     };
   }
   // String json() {
@@ -216,11 +216,17 @@ class CrawlerService {
     return null;
   }
 
-  String getData() {
+  Map<String, dynamic> getData() {
     print('getData 호출');
     // print(data.toString());
     // return '[${data.map((element) => jsonEncode(element.json())).join(',')}]';
-    return '{"data":[${data.map((element) => jsonEncode(element.json())).join(',')}], "updateAt": "${DateTime.now()}"}';
+    return {
+      "data":
+          '[${data.map((element) => jsonEncode(element.json())).join(',')}]',
+      "updateAt": DateTime.now().toString()
+    };
+    // return jsonDecode(
+    //     '{"data":"[${data.map((element) => jsonEncode(element.json())).join(',')}]", "updateAt": "${DateTime.now()}"}');
   }
 
   Future<void> fetch() async {
@@ -230,7 +236,7 @@ class CrawlerService {
     for (var item in res) {
       data.addAll(item as Products);
     }
-    print(data);
+    // print(data);
     print('fetch end ${DateTime.now()}');
   }
 

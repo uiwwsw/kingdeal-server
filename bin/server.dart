@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dotenv/dotenv.dart';
 
@@ -31,10 +32,12 @@ Future<Response> _dataHandler(Request request) async {
   //   return Response.ok([]);
   // }
   final res = CrawlerService().getData();
+  // print(res);
   // for (var d in res) {
   //   print(d.title);
   // }
-  return Response.ok(res);
+  // print(jsonDecode('{"data":[{\"id\":\"1\",\"title\":\"농심)데이플러스콜라겐500ML\",\"price\":\"2200\",\"src\":\"https://image.woodongs.com/imgsvr/item/GD_8801043068604_001.jpg\",\"size\":\"2\",\"convenienceStoreName\":\"gs25\"}],"updateAt":"2023-06-14 12:48:22.593736"}'));
+  return Response.ok(jsonEncode(res));
 }
 
 Middleware authRequests(
