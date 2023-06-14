@@ -219,7 +219,8 @@ class CrawlerService {
   String getData() {
     print('getData 호출');
     // print(data.toString());
-    return '[${data.map((element) => jsonEncode(element.json())).join(',')}]';
+    // return '[${data.map((element) => jsonEncode(element.json())).join(',')}]';
+    return '{"data":[${data.map((element) => jsonEncode(element.json())).join(',')}], "updateAt": "${DateTime.now()}"}';
   }
 
   Future<void> fetch() async {
