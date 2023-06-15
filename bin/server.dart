@@ -31,6 +31,7 @@ Future<Response> _dataHandler(Request request) async {
   // } catch (_) {
   //   return Response.ok([]);
   // }
+  print(request);
   final res = CrawlerService().getData();
   // print(res);
   // for (var d in res) {
@@ -50,7 +51,7 @@ Middleware authRequests(
           if (res) {
             return response;
           } else {
-            throw Error();
+            throw FormatException('유효하지 않습니다.');
           }
         }, onError: (Object error, StackTrace stackTrace) {
           throw error;
@@ -72,7 +73,7 @@ void main(List<String> args) async {
   final handler = Pipeline()
       .addMiddleware(corsHeaders(headers: overrideHeaders))
       .addMiddleware(logRequests())
-      .addMiddleware(authRequests())
+      // .addMiddleware(authRequests())
       .addHandler(_router);
 
   // For running in containers, we respect the PORT environment variable.
