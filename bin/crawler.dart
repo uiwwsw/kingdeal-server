@@ -231,7 +231,9 @@ class CrawlerService {
 
   Future<void> fetch() async {
     print('fetch start ${DateTime.now()}');
-    final res = await Future.wait([getGs25(), getCu(), getEmart24()]);
+    final res = await Future.wait([getGs25(), getCu(), 
+    //getEmart24()
+    ]);
     // print(res);
     for (var item in res) {
       data.addAll(item as Products);
