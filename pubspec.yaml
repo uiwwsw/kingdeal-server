@@ -5,6 +5,9 @@ version: 1.0.0
 
 environment:
   sdk: ^3.0.3
+  
+assets:
+  - .env
 
 dependencies:
   args: ^2.3.0
