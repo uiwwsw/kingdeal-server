@@ -73,7 +73,7 @@ void main(List<String> args) async {
   final handler = Pipeline()
       .addMiddleware(corsHeaders(headers: overrideHeaders))
       .addMiddleware(logRequests())
-      .addMiddleware(authRequests())
+      // .addMiddleware(authRequests())
       .addHandler(_router);
 
   // For running in containers, we respect the PORT environment variable.

@@ -11,12 +11,15 @@ typedef Products = List<Product>;
 
 enum ConvenienceStoreName { cu, gs25, emart24 }
 
+const linkPrefix = 'https://emart.ssg.com/search.ssg?target=all&query=';
+
 // int test2 = 0;
 class Product {
   final String id;
   final String title;
   final String price;
   final String src;
+  final String link;
   final int size;
   final ConvenienceStoreName convenienceStoreName;
   Product({
@@ -24,6 +27,7 @@ class Product {
     required this.title,
     required this.price,
     required this.src,
+    required this.link,
     required this.size,
     required this.convenienceStoreName,
   });
@@ -33,6 +37,7 @@ class Product {
       'title': title,
       'price': price,
       'src': src,
+      'link': link,
       'size': size.toString(),
       'convenienceStoreName': convenienceStoreName.name,
     };
@@ -46,7 +51,7 @@ class CrawlerService {
   void setScheduler() {
     print('scheduler 실행');
     final scheduler = NeatPeriodicTaskScheduler(
-      interval: const Duration(minutes: 1),
+      interval: const Duration(hours: 1),
       name: 'crawler',
       minCycle: const Duration(seconds: 2),
       timeout: const Duration(seconds: 30),
@@ -74,6 +79,7 @@ class CrawlerService {
             title: webtoon['goodsNm'],
             price: webtoon['price'].toString().split('.')[0],
             src: webtoon['attFileNm'],
+            link: linkPrefix + webtoon['goodsNm'],
             size: 2,
             convenienceStoreName: ConvenienceStoreName.gs25,
           ),
@@ -141,6 +147,7 @@ class CrawlerService {
             title: title,
             price: price,
             src: src,
+            link: linkPrefix + title,
             size: 2,
             convenienceStoreName: ConvenienceStoreName.cu,
           ),
@@ -199,6 +206,7 @@ class CrawlerService {
             title: title,
             price: price,
             src: src,
+            link: linkPrefix + title,
             size: 2,
             convenienceStoreName: ConvenienceStoreName.emart24,
           ),
@@ -231,8 +239,9 @@ class CrawlerService {
 
   Future<void> fetch() async {
     print('fetch start ${DateTime.now()}');
-    final res = await Future.wait([getGs25(), getCu(), 
-    //getEmart24()
+    final res = await Future.wait([
+      getGs25(), getCu(),
+      //getEmart24()
     ]);
     // print(res);
     for (var item in res) {
